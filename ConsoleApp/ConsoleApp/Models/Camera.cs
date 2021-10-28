@@ -8,7 +8,7 @@ namespace ConsoleApp.Models
 {
     public class Camera
     {
-        internal string 測照方向;
+        internal string condom;//原為測照方向
 
         public string 編號 { get; set; }
         public string 行政區 { get; set; }

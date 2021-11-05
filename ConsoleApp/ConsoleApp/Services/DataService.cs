@@ -22,8 +22,8 @@ namespace ConsoleApp.Services
             while (indexer.Read())
             {
                 var id = indexer["Id"];
-                var DistrictDistrict = indexer["Administrative District"];
-                var Pharmacyname = indexer["Pharmacy name"];
+                var DistrictDistrict = indexer["Administrative_District"];
+                var Pharmacyname = indexer["Pharmacy_name"];
                 var addrress = indexer["address"];
                 var phone = indexer["phone"];
                 var item = new Camera()
@@ -42,21 +42,45 @@ namespace ConsoleApp.Services
 
         public void Insert(Camera camera) 
         {
-            var commandString = @"NSERT INTO [dbo].[condom] ([Administrative District],[Pharmacy name],[address],[phone])
-            VALUES(@Administrative District,@Pharmacy name,@address,@phone)
-            WHERE Id=1";
+            var commandString = @"INSERT INTO [dbo].[condom] ([Administrative_District],[Pharmacy_name],[address],[phone])
+            VALUES(@Administrative_District,@Pharmacy_name,@address,@phone)";
+           
 
 
             SqlConnection cn = new SqlConnection(_connectionString);
             cn.Open();
             SqlCommand command = new SqlCommand(commandString, cn);
 
-            command.Parameters.Add(new SqlParameter("Administrative District", camera.行政區));
-            command.Parameters.Add(new SqlParameter("Pharmacy name", camera.藥局名稱));
+            command.Parameters.Add(new SqlParameter("Administrative_District", camera.行政區));
+            command.Parameters.Add(new SqlParameter("Pharmacy_name", camera.藥局名稱));
             command.Parameters.Add(new SqlParameter("address", camera.地址));
             command.Parameters.Add(new SqlParameter("phone", camera.電話));
 
-            //var count = command.ExecuteNonQuery();
+            var count = command.ExecuteNonQuery();
+            cn.Close();
+        }
+        public void Update(Camera camera) 
+        {
+            var commandString = @"UPDATE [dbo].[condom]
+                                SET[Administrative_District]=''
+                                ,[Pharmacy_name]=''
+                                ,[address]=''
+                                ,[phone])=''
+                                 WHERE Id=1";
+            SqlConnection cn = new SqlConnection(_connectionString);
+            cn.Open();
+            SqlCommand command = new SqlCommand(commandString, cn);
+            var count = command.ExecuteNonQuery();
+            cn.Close();
+        }
+        public void Delete(int id)
+        {
+            var commandString = @"DELETE FROM [dbo].[condom]
+                                WHERE Id=0";
+            SqlConnection cn = new SqlConnection(_connectionString);
+            cn.Open();
+            SqlCommand command = new SqlCommand(commandString, cn);
+            var count = command.ExecuteNonQuery();
             cn.Close();
         }
     }

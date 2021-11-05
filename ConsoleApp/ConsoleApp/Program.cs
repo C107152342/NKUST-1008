@@ -12,21 +12,20 @@ namespace ConsoleApp
             string fullFileName=FilePath.GetFullPath("2020-06arti.csv");
 
             var csvService = new ConsoleApp.Services.ImportCsvService();
+            DataService dataService = new DataService();
+
             var csvDatas=csvService.LoadFormFile(fullFileName);
 
-            Console.WriteLine(string.Format("分析完成,共有{0}筆資料", csvDatas.Count));
 
-       
-            DataService dataService = new DataService();
-            dataService.GetCamera();
             csvDatas.ForEach(i =>
             {
                 dataService.Insert(i);
             });
+            //dataService.GetCamera();
             var rows = dataService.GetCamera();
 
 
-
+            Console.WriteLine(string.Format("分析完成,共有{0}筆資料", rows.Count));
 
             var groupDatas = csvDatas.GroupBy(x => x.行政區, y => y).ToList();
             rows.ForEach(x =>

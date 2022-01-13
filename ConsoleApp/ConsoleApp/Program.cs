@@ -17,7 +17,7 @@ namespace ConsoleApp
             var csvDatas=csvService.LoadFormFile(fullFileName);
 
 
-            csvDatas.ForEach(i =>
+           csvDatas.ForEach(i =>
             {
                 dataService.Insert(i);
             });
